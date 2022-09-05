@@ -76,6 +76,11 @@ Assuming the user has database creation permission:::
     $ createdb bemserver
     $ psql -U $USER -d bemserver -c "CREATE EXTENSION IF NOT EXISTS timescaledb"
 
+.. note::
+    Later, when updating timescaledb, the extension in the database should be updated too::
+
+    $ psql -U $USER -d bemserver -c "ALTER EXTENSION timescaledb UPDATE;"
+
 Install prerequisites for psycopg2 compilation (used by BEMServer Core)::
 
     $ aptitude install python3-dev libpq-dev
