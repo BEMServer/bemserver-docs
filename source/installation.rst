@@ -17,16 +17,18 @@ the database and the authorization and authorization layer.
 
 It exposes objects that can be used by other blocks.
 
-It is meant to be imported and used by trusted code as it gives direct acces to
-the database.
+It is meant to be imported and used by trusted code as it gives direct access
+to the database.
 
 It is used internally by BEMServer API.
+
+It also contains the scheduler responsible for periodic tasks.
 
 BEMServer API
 -------------
 
-BEMServer API is a web REST API that exposes the core. It can be exposed over
-the Internet to be accessed by external modules.
+BEMServer API is a web REST API that exposes the core data model and features.
+It can be exposed over the Internet to be accessed by external modules.
 
 It exposes its own documentation in the OpenAPI format for module developers.
 
@@ -85,6 +87,10 @@ Install prerequisites for psycopg2 compilation (used by BEMServer Core)::
 
     $ aptitude install python3-dev libpq-dev
 
+The task scheduler uses Redis database as broker::
+
+    $ aptitude install redis
+
 BEMServer API
 -------------
 
@@ -133,7 +139,6 @@ It can be accessed in a local browser at http://localhost:5000.
     While this is fine in development mode, production setups should use a real
     webserver such as Apache or Nginx.
 
-
 BEMServer UI
 ------------
 
@@ -169,3 +174,28 @@ At this point, the web UI can be launched from the command line::
 .. warning::
     While this is fine in development mode, production setups should use a real
     webserver such as Apache or Nginx.
+
+Scheduled Tasks
+---------------
+
+BEMServer uses `Celery`_ to manage asynchronous tasks.
+
+Open two shells in an environment where bemerver-core is installed, and in each
+shell, define an environment variable with the DB URI::
+
+    $ export SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user:password@localhost:5432/bemserver"
+
+In a shell, start Celery workers to execute the tasks::
+
+    $ celery -A bemserver_core worker
+
+In the other, start Celery beat to trigger tasks at regular intervals::
+
+    $ celery -A bemserver_core beat
+
+.. warning::
+    While this is fine in development mode, production setups should use a
+    daemon, e.g. by defining a systemd service.
+
+
+.. _Celery: https://docs.celeryq.dev/
