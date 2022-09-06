@@ -22,6 +22,13 @@ Timeseries and events data in a campaign may be split into separate scopes.
 Campaign scopes are used to organize data and to provide more fine-grained
 permissions.
 
+Timeseries data may have several states depending on their origin and the
+processes they have been through. For a given timeseries name and ID, the
+database stores data for each state. By default, BEMServer defines the "Raw"
+and the "Clean" states. The "Raw" state is intended for raw data from sensors,
+while the "Clean" state is meant for data pre-processed by a cleanup process or
+data from a reliable source. Custom data states may be added.
+
 BEMServer data model stores properties about building and timeseries. By
 default, only a few properties are defined. Users may define custom properties.
 Custom building or timeseries properties are defined at application level and

@@ -27,3 +27,4 @@ Guide
 
     installation
     user_guide
+    services
