@@ -59,5 +59,5 @@ tedious, the information may be imported from a CSV file.
 Properties may be added to CSV files assuming they have been defined at
 application level first.
 
-At this point, it is possible to send timeserie data to BEMServer trough the
-API. Timeseries data may also be imported manually as CSV.
+At this point, it is possible to send timeseries data to BEMServer trough the
+API. Timeseries data may also be imported manually as CSV in the web interface.
