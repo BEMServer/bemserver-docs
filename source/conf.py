@@ -28,4 +28,7 @@ html_theme_options = {
     "logo": "bemserver-logo.png",
     "description": "Open Source Building Energy Management platform",
     "description_font_style": "italic",
+    "extra_nav_links": {
+        "BEMServer@GitHub": "http://github.com/bemserver",
+    },
 }
