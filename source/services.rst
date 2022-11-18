@@ -22,6 +22,8 @@ The folling sections describe the internal services shipped with BEMServer.
 Cleanup Service
 ===============
 
+Task name: "Cleanup"
+
 The Cleanup service drops outliers from timeseries. It runs on a 5 minutes
 schedule. Once enabled for a campaign, it reads data from all timeseries in the
 campaign in "Raw" state, drops outliers and writes to the "Clean" state.
