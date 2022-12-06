@@ -44,3 +44,23 @@ The configuration required from the user is:
    is sent in chronlogical order, timeseries-wise. In other words, it doesn't
    matter if e.g. due to a lost connection, some timeseries are sent with a
    delay, but each of them should be sent by ascending timestamps.
+
+Check Missing Data Service
+==========================
+
+Task name: "CheckMissing"
+
+Parameters:
+
+- ``period``: one of ``"second"``, ``"minute"``, ``"hour"``, ``"day"``,
+  ``"week"``, ``"month"``, ``"year"``
+- ``period_multiplier``: integer multiplier, must be 1 for periods of day or more
+- ``timezone``: IANA timezone (defaults to UTC)
+- ``min_completeness_ratio``: minimum present/expected data to pass check
+  (default to 0.9)
+
+This service checks the timeseries data for missing data. Missing data is
+detected if the expected data interval is known and the amount of data on a
+given period is lower than the expected amount multiplied by the
+``min_completeness_ratio``. When using wireless sensors in noisy environment
+where an important data loss is expected, the minimum ratio should be lowered.
