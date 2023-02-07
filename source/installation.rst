@@ -191,19 +191,22 @@ At this point, the web UI can be launched from the command line::
 
 .. warning::
     While this is fine in development mode, production setups should use a real
-    webserver such as Apache or Nginx.
+    webserver such as Apache or Nginx. bemserver-api repository provides sample
+    files for a production installation.
 
 Scheduled Tasks
 ---------------
 
 BEMServer uses `Celery`_ to manage asynchronous tasks. It needs workers to
-execute tasks, and another process, called beat, to trigger scheduled tasks
+execute tasks, and another process, called beat, to trigger scheduled tasks.
 
 Celery can be configured with a Python file.
 
 Create a Celery configuration file (e.g. bemserver-celery-settings.py). It
-should contain the scheduling parameters of the services to run::
+should contain the datbase URL string and the scheduling parameters of the
+services to run::
 
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://user:password@localhost:5432/bemserver"
     CELERYBEAT_SCHEDULE = {
         "service_id": {                # Unique identifier of your choice
             "task": "ServiceName",     # Task name of the service
@@ -218,9 +221,8 @@ For details about how to define entries in the schedule, see
 Schedules may also be passed in crontab form.
 
 Open two shells in an environment where bemerver-core is installed, and in each
-shell, define required environment variables::
+shell, define an environment variable pointing to the configuration file::
 
-    $ export SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user:password@localhost:5432/bemserver"
     $ export BEMSERVER_CELERY_SETTINGS_FILE="/path/to/bemserver-celery-settings.py"
 
 In a shell, start Celery workers to execute the tasks::
@@ -233,7 +235,7 @@ In the other, start Celery beat to trigger tasks at regular intervals::
 
 .. warning::
     While this is fine in development mode, production setups should use a
-    daemon, e.g. by defining a systemd service.
-
+    daemon, e.g. by defining a systemd service. bemserver-core repository
+    provides sample files for a production installation.
 
 .. _Celery: https://docs.celeryq.dev/
