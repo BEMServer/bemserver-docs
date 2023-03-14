@@ -129,20 +129,24 @@ Create an admin user::
 
     $ bemserver_create_user --name chuck --email chuck@norris.com --admin
 
-API setup
-^^^^^^^^^
+Core setup
+^^^^^^^^^^
 
-Create a configuration file (e.g. bemserver-api.cfg). Add API parameters:
+Create a configuration file (e.g. bemserver-core-settings.py) with configuration parameters.
+This file must be a valid Python file. At least a database URI must be provided.
 
 .. code-block::
 
-       SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://user:password@localhost:5432/bemserver"
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://user:password@localhost:5432/bemserver"
 
 Set an environment variable to point to that file::
 
-    $ export FLASK_SETTINGS_FILE="/path/to/bemserver-api.cfg"
+    $ export BEMSERVER_CORE_SETTINGS_FILE="/path/to/bemserver-core-settings.py"
 
-At this point, the web API can be launched from the command line::
+API setup
+^^^^^^^^^
+
+The web API can be launched from the command line::
 
     $ flask run
 
@@ -151,6 +155,11 @@ It can be accessed in a local browser at http://localhost:5000.
 .. warning::
     While this is fine in development mode, production setups should use a real
     webserver such as Apache or Nginx.
+
+Default configuration can be overridden by passing a file path with an environment
+variable::
+
+    $ export BEMSERVER_API_SETTINGS_FILE="/path/to/bemserver-api-settings.py"
 
 BEMServer UI
 ------------
@@ -200,14 +209,18 @@ Scheduled Tasks
 BEMServer uses `Celery`_ to manage asynchronous tasks. It needs workers to
 execute tasks, and another process, called beat, to trigger scheduled tasks.
 
-Celery can be configured with a Python file.
+Like BEMServer API, the configuration is split into the BEMServer Core part and
+the BEMServer Celery part. Configuration of BEMServer Celery is also achieved
+with a Python file provided by an environment variable.
+
+This split avoids duplication of BEMServer Core parameters by allowing the use
+of the same configuration file for all applications using BEMServerCore
+(BEMServer API, BEMServer Celery,...).
 
 Create a Celery configuration file (e.g. bemserver-celery-settings.py). It
-should contain the datbase URL string and the scheduling parameters of the
-services to run::
+should contain the scheduling parameters of the services to run::
 
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://user:password@localhost:5432/bemserver"
-    CELERYBEAT_SCHEDULE = {
+    beat_schedule = {
         "service_id": {                # Unique identifier of your choice
             "task": "ServiceName",     # Task name of the service
             "schedule": 3600,          # Scheduling interval in seconds
@@ -221,8 +234,9 @@ For details about how to define entries in the schedule, see
 Schedules may also be passed in crontab form.
 
 Open two shells in an environment where bemerver-core is installed, and in each
-shell, define an environment variable pointing to the configuration file::
+shell, define environment variables pointing to the configuration files::
 
+    $ export BEMSERVER_CORE_SETTINGS_FILE="/path/to/bemserver-core-settings.py"
     $ export BEMSERVER_CELERY_SETTINGS_FILE="/path/to/bemserver-celery-settings.py"
 
 In a shell, start Celery workers to execute the tasks::
