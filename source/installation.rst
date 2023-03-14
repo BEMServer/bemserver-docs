@@ -188,7 +188,7 @@ random secret key:
 
 Set an environment variable to point to that file::
 
-    $ export FLASK_SETTINGS_FILE="/path/to/bemserver-ui.cfg"
+    $ export BEMSERVER_UI_SETTINGS_FILE="/path/to/bemserver-ui.cfg"
 
 At this point, the web UI can be launched from the command line::
 
