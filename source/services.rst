@@ -57,7 +57,7 @@ Parameters:
 - ``period_multiplier``: integer multiplier, must be 1 for periods of day or more
 - ``timezone``: IANA timezone (defaults to UTC)
 - ``min_completeness_ratio``: minimum present/expected data to pass check
-  (default to 0.9)
+  (defaults to 0.9)
 
 This service checks the timeseries data for missing data. Missing data is
 detected if the expected data interval is known and the amount of data on a
@@ -77,9 +77,27 @@ Parameters:
 - ``period_multiplier``: integer multiplier, must be 1 for periods of day or more
 - ``timezone``: IANA timezone (defaults to UTC)
 - ``min_correctness_ratio``: minimum correct/total data to pass check
-  (default to 0.9)
+  (defaults to 0.9)
 
 This service checks the timeseries data for outliers. Outliers are detected if
 the minimum and/or maximum bounds are known and the amount of out of bounds data
 on a given period is such that the correct/total ratio is lower than
 ``min_correctness_ratio``.
+
+Download Weather Data Service
+=============================
+
+Task name: "DownloadWeatherDataScheduledTask"
+
+Parameters;
+
+- ``period``: one of ``"second"``, ``"minute"``, ``"hour"``, ``"day"``,
+  ``"week"``, ``"month"``, ``"year"``
+- ``period_multiplier``: integer multiplier, must be 1 for periods of day or more
+- ``periods_before``: integer, number of period x multiplier
+- ``periods_after``: integer, number of period x multiplier
+- ``timezone``: IANA timezone (defaults to UTC)
+
+This service downloads the weather data for all sites for which it is activated
+and weather timeseries have been defined. The data is downloaded for a time
+range defined by a number of periods before and after execution time.

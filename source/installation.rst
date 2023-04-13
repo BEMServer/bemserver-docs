@@ -139,6 +139,9 @@ This file must be a valid Python file. At least a database URI must be provided.
 
     SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://user:password@localhost:5432/bemserver"
 
+    # If using weather download feature
+    WEATHER_DATA_CLIENT_API_KEY = "apikey"
+
 Set an environment variable to point to that file::
 
     $ export BEMSERVER_CORE_SETTINGS_FILE="/path/to/bemserver-core-settings.py"
