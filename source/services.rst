@@ -87,7 +87,7 @@ on a given period is such that the correct/total ratio is lower than
 Download Weather Data Service
 =============================
 
-Task name: "DownloadWeatherDataScheduledTask"
+Task name: "DownloadWeatherData"
 
 Parameters;
 
@@ -101,3 +101,26 @@ Parameters;
 This service downloads the weather data for all sites for which it is activated
 and weather timeseries have been defined. The data is downloaded for a time
 range defined by a number of periods before and after execution time.
+
+Download Weather Forecast Data Service
+======================================
+
+Task name: "DownloadWeatherForecastData"
+
+Parameters;
+
+- ``period``: one of ``"second"``, ``"minute"``, ``"hour"``, ``"day"``,
+  ``"week"``, ``"month"``, ``"year"``
+- ``period_multiplier``: integer multiplier, must be 1 for periods of day or more
+- ``periods_before``: integer, number of period x multiplier
+- ``periods_after``: integer, number of period x multiplier
+- ``timezone``: IANA timezone (defaults to UTC)
+
+This service downloads the weather forecast data for all sites for which it is
+activated and weather forecast timeseries have been defined. The data is downloaded
+for a time range defined by a number of periods before and after execution time.
+
+.. warning::
+    The only difference with the "DownloadWeatherData" task is that data is stored
+    in timeseries defined as forecast timeseries. Nothing prevents the user from
+    downloading past data and storing it in forecast timeseries or conversely.
