@@ -66,7 +66,7 @@ First, install PostgreSQL 13::
 
     $ aptitude install postgresql
 
-Create a database. Assuming the user has database creation permission:::
+Create a database. Assuming the user has database creation permission::
 
     $ createdb bemserver
 
