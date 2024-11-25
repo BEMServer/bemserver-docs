@@ -244,11 +244,11 @@ shell, define environment variables pointing to the configuration files::
 
 In a shell, start Celery workers to execute the tasks::
 
-    $ celery -A bemserver_core worker
+    $ celery -A bemserver_core.celery_worker worker
 
 In the other, start Celery beat to trigger tasks at regular intervals::
 
-    $ celery -A bemserver_core beat
+    $ celery -A bemserver_core.celery_worker beat
 
 .. warning::
     While this is fine in development mode, production setups should use a
