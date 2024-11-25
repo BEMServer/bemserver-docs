@@ -236,11 +236,10 @@ For details about how to define entries in the schedule, see
 `Celery documentation <https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html#beat-entries>`_.
 Schedules may also be passed in crontab form.
 
-Open two shells in an environment where bemerver-core is installed, and in each
-shell, define environment variables pointing to the configuration files::
+Open two shells in an environment where bemserver-core is installed, and in each
+shell, define an environment variable pointing to the configuration file::
 
     $ export BEMSERVER_CORE_SETTINGS_FILE="/path/to/bemserver-core-settings.py"
-    $ export BEMSERVER_CELERY_SETTINGS_FILE="/path/to/bemserver-celery-settings.py"
 
 In a shell, start Celery workers to execute the tasks::
 
