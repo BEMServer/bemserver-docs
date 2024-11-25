@@ -212,24 +212,17 @@ Scheduled Tasks
 BEMServer uses `Celery`_ to manage asynchronous tasks. It needs workers to
 execute tasks, and another process, called beat, to trigger scheduled tasks.
 
-Like BEMServer API, the configuration is split into the BEMServer Core part and
-the BEMServer Celery part. Configuration of BEMServer Celery is also achieved
-with a Python file provided by an environment variable.
+The configuration is included in the BEMServer Core configuration file::
 
-This split avoids duplication of BEMServer Core parameters by allowing the use
-of the same configuration file for all applications using BEMServerCore
-(BEMServer API, BEMServer Celery,...).
-
-Create a Celery configuration file (e.g. bemserver-celery-settings.py). It
-should contain the scheduling parameters of the services to run::
-
-    beat_schedule = {
-        "service_id": {                # Unique identifier of your choice
-            "task": "ServiceName",     # Task name of the service
-            "schedule": 3600,          # Scheduling interval in seconds
-            "args": (arg_1, args_2),   # Task arguments
-            "kwargs": {"kwarg": val}   # Task keyword arguments
-        },
+    CELERY_CONFIG = {
+        "beat_schedule": {
+            "service_id": {                # Unique identifier of your choice
+                "task": "ServiceName",     # Task name of the service
+                "schedule": 3600,          # Scheduling interval in seconds
+                "args": (arg_1, args_2),   # Task arguments
+                "kwargs": {"kwarg": val}   # Task keyword arguments
+            },
+        }
     }
 
 For details about how to define entries in the schedule, see
