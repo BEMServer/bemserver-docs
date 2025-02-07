@@ -119,8 +119,3 @@ Parameters;
 This service downloads the weather forecast data for all sites for which it is
 activated and weather forecast timeseries have been defined. The data is downloaded
 for a time range defined by a number of periods before and after execution time.
-
-.. warning::
-    The only difference with the "DownloadWeatherData" task is that data is stored
-    in timeseries defined as forecast timeseries. Nothing prevents the user from
-    downloading past data and storing it in forecast timeseries or conversely.
