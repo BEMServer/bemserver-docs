@@ -27,4 +27,5 @@ Guide
 
     installation
     user_guide
+    api 
     services
